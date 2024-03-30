@@ -1,0 +1,64 @@
+import 'dart:io';
+
+// Interface definition
+abstract class Animal {
+  void makeSound();
+}
+
+// Parent class
+class LivingBeing {
+  void breathe() {
+    print('Breathing...');
+  }
+}
+
+// Child class inheriting from LivingBeing and implementing the Animal interface
+class Dog extends LivingBeing implements Animal {
+  @override
+  void makeSound() {
+    print('Woof! Woof!');
+  }
+
+  // Method overriding
+  @override
+  void breathe() {
+    super.breathe(); // Calling parent class method
+    print('Dog is breathing...');
+  }
+}
+
+// Method to initialize an instance of a class with data from a file
+void initializeFromFile(Dog dog, String filePath) {
+  File file = File(filePath);
+  List<String> lines = file.readAsLinesSync();
+
+  // Assuming file contains one line with dog's name
+  if (lines.isNotEmpty) {
+    dog.name = lines[0];
+  }
+}
+
+// Method demonstrating the use of a loop
+void loopExample() {
+  for (int i = 0; i < 5; i++) {
+    print('Iteration $i');
+  }
+}
+
+void main() {
+  // Creating an instance of Dog class
+  Dog dog = Dog();
+
+  // Using interface method
+  dog.makeSound();
+
+  // Overridden method
+  dog.breathe();
+
+  // Initializing dog's name from file
+  initializeFromFile(dog, 'dog_data.txt');
+  print('Dog\'s name: ${dog.name}');
+
+  // Method demonstrating the use of a loop
+  loopExample();
+}
